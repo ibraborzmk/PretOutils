@@ -1,17 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from 'react-dom';
+import './index.css'; // Assurez-vous d'avoir un fichier index.css pour les styles globaux de votre application
+import Head from './Header';
+import Image from './bande-image'; // Importez votre nouveau composant
+import img from './bande-image2.jpg'; // Importez votre image
+import Annonce from './Annonce';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+
+root.render (
+    <React.StrictMode>
+      <Head/>
+      <Image src={img} alt="bande-index" />
+      <Annonce category="Outillage" count={6} />
+      <Annonce category="Outillage" count={6} />
+    </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+// ReactDOM.render(
+
