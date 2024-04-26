@@ -11,7 +11,7 @@ const db = mysql.createConnection({
   host: process.env.DB_HOST || 'localhost', // Utilise la variable d'environnement ou 'localhost' par défaut
   user: process.env.DB_USER || 'root',      // Utilise la variable d'environnement ou 'root' par défaut
   password: process.env.DB_PASSWORD || 'root', // Utilise la variable d'environnement ou 'root' par défaut
-  database: process.env.DB_DATABASE || 'userdb' // Utilise la variable d'environnement ou 'userdb' par défaut
+  database: process.env.DB_DATABASE || 'outils_db' // Utilise la variable d'environnement ou 'userdb' par défaut
 });
 
 db.connect(err => {

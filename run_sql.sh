@@ -4,7 +4,7 @@
 DB_USER="root"
 DB_PASSWORD="root"
 DB_HOST="localhost"
-DB_NAME="init_db"
+DB_NAME="outils_db"
 
 # Emplacement du fichier SQL
 SQL_FILE="/home/bmk/Documents/techno4/PretOutils/database/init_db.sql"
