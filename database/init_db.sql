@@ -1,5 +1,4 @@
 -- Créer la base de données
-
 DROP DATABASE IF EXISTS outils_db;
 CREATE DATABASE IF NOT EXISTS outils_db;
 
@@ -8,47 +7,39 @@ USE outils_db;
 
 -- Créer la table 'users'
 CREATE TABLE IF NOT EXISTS users (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    idname VARCHAR(10) PRIMARY KEY,
     nom VARCHAR(100),
     prenom VARCHAR(100),
     email VARCHAR(100),
     password VARCHAR(100),
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
+    date_enter TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE IF NOT EXISTS articles (
+-- Créer la table 'annonces'
+CREATE TABLE IF NOT EXISTS annonces (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
-    price DECIMAL NOT NULL,
+    price DECIMAL(10,2) NOT NULL, -- Spécifiez la précision pour le prix
     category VARCHAR(255) NOT NULL,
-    author_id INT NOT NULL,
-    published_date DATE,
-
-    FOREIGN KEY (author_id) REFERENCES users(id)
+    city VARCHAR(255) NOT NULL,
+    postal_code VARCHAR(255) NOT NULL,
+    author_idname VARCHAR(100),
+    published_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    image MEDIUMBLOB,  -- Modifier pour stocker le chemin de l'image
+    FOREIGN KEY (author_idname) REFERENCES users(idname) ON DELETE SET NULL -- Ajustement pour gérer la suppression
 );
 
+-- Insérer des données dans 'users'
+INSERT INTO users (idname, nom, prenom, email, password) VALUES 
+('notorious', 'McGregor', 'Conor', 'mcgregor.conor@gmail.com', 'password123'),
+('putin', 'Khabib', 'Nurmagomedov', 'nurma.khabib@gmail.com', 'password123'),
+('jon.jones', 'Jones', 'Jon', 'jonnybones@gmail.com', 'password123');
 
--- Insérer des données dans la table 'users'
-INSERT INTO users (nom, prenom, email, password) VALUES('Chimaev', 'Khamzat', 'chimaev.khamzat@gmail.com', '123456');
-INSERT INTO users (nom, prenom, email, password) VALUES('Nurmagomedov', 'Khabib', 'nurmagomedov.khabib@gmail.com', '123456');
-INSERT INTO users (nom, prenom, email, password) VALUES('McGregor', 'Conor', 'mcgregor.conor@gmail.com', '123456');
-
-INSERT INTO articles (title, content, price, category, author_id, published_date) VALUES('Scie circulaire', 'Scie circulaire de marque Bosch', 150.00, 'Outils', 1, '2021-09-01');
-INSERT INTO articles (title, content, price, category, author_id, published_date) VALUES('Perceuse sans fil', 'Perceuse sans fil de marque Makita', 100.00, 'Outils', 1, '2021-09-02');
-INSERT INTO articles (title, content, price, category, author_id, published_date) VALUES('Marteau', 'Marteau de charpentier', 10.00, 'Outils', 2, '2021-09-03');
-INSERT INTO articles (title, content, price, category, author_id, published_date) VALUES('Tournevis', 'Jeu de tournevis', 20.00, 'Outils', 2, '2021-09-04');
-INSERT INTO articles (title, content, price, category, author_id, published_date) VALUES('Ponceuse', 'Ponceuse électrique', 50.00, 'Outils', 3, '2021-09-05');
-
-
--- Requête pour récupérer tous les utilisateurs
-SELECT * FROM users;
-
--- Requête pour trouver un utilisateur par email
-SELECT * FROM users WHERE email = 'mcgregor.conor@gmail.com';
-
--- Mettre à jour l'email d'un utilisateur
-UPDATE users SET email = 'newemail.conor@gmail.com' WHERE id = 3;
-
-
+-- Insérer des données dans 'annonces'
+INSERT INTO annonces (title, content, price, category, city, postal_code, author_idname) VALUES 
+('Scie circulaire', 'Scie circulaire Bosch 1400W', 99.99, 'Outils', 'Paris', '75000', 'notorious'),
+('Marteau', 'Marteau 500g', 9.99, 'Outils', 'Marseille', '13000', 'putin'),
+('Perceuse', 'Perceuse sans fil 18V', 129.99, 'Outils', 'Lyon', '69000', 'jon.jones'),
+('Ponceuse', 'Ponceuse excentrique 300W', 49.99, 'Outils', 'Toulouse', '31000', 'notorious'),
+('Tournevis', 'Tournevis cruciforme', 4.99, 'Outils', 'Bordeaux', '33000', 'putin');
