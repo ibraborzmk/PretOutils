@@ -37,7 +37,7 @@ def update_image_in_annonce(id_annonce, image_path):
 
 # Exemple d'utilisation
 update_image_in_annonce(1, '/home/bmk/Documents/techno4/PretOutils/database/ponceuse.jpg')
-update_image_in_annonce(2, '/home/bmk/Documents/techno4/PretOutils/database/perceuse.jpg')
+update_image_in_annonce(2, '/home/bmk/Documents/techno4/PretOutils/database/ponceuse.jpg')
 update_image_in_annonce(3, '/home/bmk/Documents/techno4/PretOutils/database/scie.jpg')
-update_image_in_annonce(4, '/home/bmk/Documents/techno4/PretOutils/database/tondeuse.jpg')
-update_image_in_annonce(5, '/home/bmk/Documents/techno4/PretOutils/database/tondeuse.jpg')
+update_image_in_annonce(4, '/home/bmk/Documents/techno4/PretOutils/database/marteau.jpg')
+update_image_in_annonce(5, '/home/bmk/Documents/techno4/PretOutils/database/tournevis.jpg')
