@@ -51,9 +51,6 @@ CREATE TABLE IF NOT EXISTS annonces (
 
 
 INSERT INTO users (idname, nom, prenom, email, password) VALUES 
-('notorious', 'McGregor', 'Conor', 'mcgregor.conor@gmail.com', 'password123'),
-('putin', 'Khabib', 'Nurmagomedov', 'nurma.khabib@gmail.com', 'password123'),
-('jon.jones', 'Jones', 'Jon', 'jonnybones@gmail.com', 'password123'),
 ('rocky', 'Balboa', 'Rocky', 'rrr@gmail.com', 'password'),
 ('creed', 'Creed', 'Adonis', 'creed.adonis@gmail.com', 'password123'),
 ('apollo', 'Creed', 'Apollo', 'apollo.creed@gmail.com', 'password123'),
@@ -61,19 +58,65 @@ INSERT INTO users (idname, nom, prenom, email, password) VALUES
 
 -- Insérer les conversations
 INSERT INTO conversations  (creator_idname, receiver_idname, title) VALUES 
-('notorious', 'putin', 'Conor vs Khabib'),
-('notorious', 'jon.jones', 'Conor vs Jon'),
-('putin', 'jon.jones', 'Khabib vs Jon');
+('rocky', 'creed', 'Creed'),
+('rocky', 'apollo', 'Apollo'),
+('rocky', 'drago', 'Drago'),
+('creed', 'apollo', 'Apollo'),
+('creed', 'drago', 'Drago'),
+('apollo', 'drago', 'Drago');
+
 
 
 -- Maintenant, insérer les messages en utilisant les IDs corrects
 INSERT INTO messages (conversation_id, user_idname, user_dest_idname, message) VALUES 
-(1, 'notorious', 'putin', 'Salut Khabib, tu vas bien ?'),
-(1, 'putin', 'notorious', 'Salut Conor, oui et toi ?'),
-(2, 'notorious', 'jon.jones', 'Salut Jon, tu vas bien ?'),
-(2, 'jon.jones', 'notorious', 'Salut Conor, oui et toi ?'),
-(3, 'putin', 'jon.jones', 'Salut Jon, tu vas bien ?'),
-(3, 'jon.jones', 'putin', 'Salut Khabib, oui et toi ?');
+(1, 'rocky', 'creed', 'Salut Creed, comment vas-tu ?'),
+(1, 'creed', 'rocky', 'Salut Rocky, je vais bien merci et toi ?'),
+(1, 'rocky', 'creed', 'Je vais bien aussi, merci. Tu as vu la nouvelle annonce ?'),
+(1, 'creed', 'rocky', 'Oui, elle est superbe !'),
+(1, 'rocky', 'creed', 'Je suis d''accord !'),
+(1, 'creed', 'rocky', 'On se voit bientôt ?'),
+(1, 'rocky', 'creed', 'Oui, je suis dispo demain après-midi'),
+(1, 'creed', 'rocky', 'D''accord, je serai là !'),
+(2, 'rocky', 'apollo', 'Salut Apollo, comment vas-tu ?'),
+(2, 'apollo', 'rocky', 'Salut Rocky, je vais bien merci et toi ?'),
+(2, 'rocky', 'apollo', 'Je vais bien aussi, merci. Tu as vu la nouvelle annonce ?'),
+(2, 'apollo', 'rocky', 'Oui, elle est superbe !'),
+(2, 'rocky', 'apollo', 'Je suis d''accord !'),
+(2, 'apollo', 'rocky', 'On se voit bientôt ?'),
+(2, 'rocky', 'apollo', 'Oui, je suis dispo demain après-midi'),
+(2, 'apollo', 'rocky', 'D''accord, je serai là !'),
+(3, 'rocky', 'drago', 'Salut Drago, comment vas-tu ?'),
+(3, 'drago', 'rocky', 'Salut Rocky, je vais bien merci et toi ?'),
+(3, 'rocky', 'drago', 'Je vais bien aussi, merci. Tu as vu la nouvelle annonce ?'),
+(3, 'drago', 'rocky', 'Oui, elle est superbe !'),
+(3, 'rocky', 'drago', 'Je suis d''accord !'),
+(3, 'drago', 'rocky', 'On se voit bientôt ?'),
+(3, 'rocky', 'drago', 'Oui, je suis dispo demain après-midi'),
+(3, 'drago', 'rocky', 'D''accord, je serai là !'),
+(4, 'creed', 'apollo', 'Salut Apollo, comment vas-tu ?'),
+(4, 'apollo', 'creed', 'Salut Creed, je vais bien merci et toi ?'),
+(4, 'creed', 'apollo', 'Je vais bien aussi, merci. Tu as vu la nouvelle annonce ?'),
+(4, 'apollo', 'creed', 'Oui, elle est superbe !'),
+(4, 'creed', 'apollo', 'Je suis d''accord !'),
+(4, 'apollo', 'creed', 'On se voit bientôt ?'),
+(4, 'creed', 'apollo' , 'Oui, je suis dispo demain après-midi'),
+(4, 'apollo', 'creed', 'D''accord, je serai là !'),
+(5, 'creed', 'drago', 'Salut Drago, comment vas-tu ?'),
+(5, 'drago', 'creed', 'Salut Creed, je vais bien merci et toi ?'),
+(5, 'creed', 'drago', 'Je vais bien aussi, merci. Tu as vu la nouvelle annonce ?'),
+(5, 'drago', 'creed', 'Oui, elle est superbe !'),
+(5, 'creed', 'drago', 'Je suis d''accord !'),
+(5, 'drago', 'creed', 'On se voit bientôt ?'),
+(5, 'creed', 'drago', 'Oui, je suis dispo demain après-midi'),
+(5, 'drago', 'creed', 'D''accord, je serai là !'),
+(6, 'apollo', 'drago', 'Salut Drago, comment vas-tu ?'),
+(6, 'drago', 'apollo', 'Salut Apollo, je vais bien merci et toi ?'),
+(6, 'apollo', 'drago', 'Je vais bien aussi, merci. Tu as vu la nouvelle annonce ?'),
+(6, 'drago', 'apollo', 'Oui, elle est superbe !'),
+(6, 'apollo', 'drago', 'Je suis d''accord !'),
+(6, 'drago', 'apollo', 'On se voit bientôt ?'),
+(6, 'apollo', 'drago', 'Oui, je suis dispo demain après-midi'),
+(6, 'drago', 'apollo', 'D''accord, je serai là !');
 
 
 -- Continuation des insertions dans 'annonces' avec ajustement des prix

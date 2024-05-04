@@ -251,8 +251,42 @@ app.get('/categorie/:category/:sousCategory', (req, res) => {
 
 
 
+app.post('/inscription', async (req, res) => {
+  const { nom, prenom, email,username, password } = req.body;
+
+  // Code pour insérer dans la base de données
+  const query = 'INSERT INTO users (idname, nom, prenom, email, password) VALUES (?, ?, ?, ?, ?)';
+  db.query(query, [username ,nom, prenom, email, password], (err, result) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).send({ success: false, message: 'Erreur lors de l\'inscription' });
+      }
+      res.status(201).send({ success: true, message: 'Inscription réussie' });
+  });
+});
 
 
+app.post('/envoyerMessage', (req, res) => {
+  const { conversationId, envoyeur, destinataire, messageText } = req.body;
+
+  // Vous devez valider ici les données reçues pour vous assurer de leur intégrité
+  if (!conversationId || !envoyeur || !destinataire || !messageText) {
+    return res.status(400).send({ success: false, message: 'Données requises manquantes' });
+  }
+
+  const query = `
+    INSERT INTO messages (conversation_id, user_idname,user_dest_idname, message, sent_date)
+    VALUES (?, ?, ?, ?, NOW())
+  `;
+
+  db.query(query, [conversationId, envoyeur, destinataire, messageText], (err, result) => {
+    if (err) {
+      console.error("Erreur lors de l'insertion du message :", err);
+      return res.status(500).send({ success: false, message: 'Erreur lors de lenvoi du message' });
+    }
+    res.status(201).send({ success: true, message:  messageText});
+  });
+});
 
 
 
