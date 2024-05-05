@@ -1,7 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
+const path = require("path");
 const cors = require("cors");
+const app = express();
+
+
+app.use(cors());
 require("dotenv").config(); // Charge les variables d'environnement
 
 const multer = require('multer');
@@ -18,7 +23,11 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-const app = express();
+// Chemin absolu vers le dossier où les images sont stockées
+const imagesDirectory = path.join(__dirname, 'database');
+
+// Servir les images du dossier 'database'
+app.use('/image', express.static(imagesDirectory));
 app.use(bodyParser.json());
 
 // Configuration de CORS pour autoriser les requêtes de votre application React
@@ -65,18 +74,12 @@ app.get("/", (req, res) => {
 app.get("/annonces", (req, res) => {
   // Ajoutez TO_BASE64 autour de la colonne BLOB
   db.query(
-    "SELECT id, title, content, price, category, city, postal_code, author_idname, published_date, TO_BASE64(image) AS imageBase64 FROM annonces",
+    "SELECT id, title, content, price, category, city, postal_code, author_idname, published_date, image FROM annonces",
     (err, results) => {
       if (err) {
         res.status(500).send("Erreur lors de la récupération des annonces");
         console.error(err);
       } else {
-        // Traiter les résultats pour inclure le préfixe nécessaire pour l'interprétation correcte des données en tant qu'images
-        results.forEach((result) => {
-          if (result.imageBase64) {
-            result.image = `data:image/jpeg;base64,${result.imageBase64}`;
-          }
-        });
         res.json(results);
       }
     }
@@ -157,11 +160,6 @@ app.get("/user/:id/annonces", (req, res) => {
         .send("Erreur lors de la récupération des annonces de l’utilisateur");
       console.error(err);
     } else {
-      results.forEach((result) => {
-        if (result.imageBase64) {
-          result.image = `data:image/jpeg;base64,${result.imageBase64}`;
-        }
-      });
       res.json(results);
       console.log("Requête pour les annonces de l'utilisateur:", userId);
       console.log("Résultats:", results);
