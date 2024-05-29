@@ -191,6 +191,7 @@ app.get("/conversations/user/:userId", (req, res) => {
       res.status(500).send("Erreur lors de la récupération des conversations");
       console.error(err);
     } else {
+      console.log("Conversations récupérées:", results);
       res.json(results);
     }
   });

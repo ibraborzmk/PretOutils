@@ -16,10 +16,13 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Créer les autres tables nécessaires
 CREATE TABLE IF NOT EXISTS conversations (
-    conversation_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    conversation_id INT,
     creator_idname VARCHAR(10),
     receiver_idname VARCHAR(10),
-    title VARCHAR(255)
+    title VARCHAR(255),
+    FOREIGN KEY (creator_idname) REFERENCES users(idname) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_idname) REFERENCES users(idname) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -29,7 +32,6 @@ CREATE TABLE IF NOT EXISTS messages (
     user_dest_idname VARCHAR(10),
     message TEXT NOT NULL,
     sent_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (conversation_id) REFERENCES conversations(conversation_id) ON DELETE CASCADE,
     FOREIGN KEY (user_idname) REFERENCES users(idname) ON DELETE CASCADE
 );
 
@@ -57,13 +59,19 @@ INSERT INTO users (idname, nom, prenom, email, password) VALUES
 ('drago', 'Drago', 'Ivan', 'drago.ivan@gmail.com', 'password123');
 
 -- Insérer les conversations
-INSERT INTO conversations  (creator_idname, receiver_idname, title) VALUES 
-('rocky', 'creed', 'Creed'),
-('rocky', 'apollo', 'Apollo'),
-('rocky', 'drago', 'Drago'),
-('creed', 'apollo', 'Apollo'),
-('creed', 'drago', 'Drago'),
-('apollo', 'drago', 'Drago');
+INSERT INTO conversations  (conversation_id , creator_idname, receiver_idname, title) VALUES 
+(1, 'rocky', 'creed', 'Creed'),
+(1 , 'creed', 'rocky', 'Rocky'),
+(2 , 'rocky', 'apollo', 'Apollo'),
+(2 , 'apollo', 'rocky', 'Rocky'),
+(3, 'rocky', 'drago', 'Drago'),
+(3, 'drago', 'rocky', 'Rocky'),
+(4, 'creed', 'apollo', 'Apollo'),
+(4, 'apollo', 'creed', 'Creed'),
+(5, 'creed', 'drago', 'Drago'),
+(5, 'drago', 'creed', 'Creed'),
+(6, 'apollo', 'drago', 'Drago'),
+(6,'drago', 'apollo', 'Apollo');
 
 
 
