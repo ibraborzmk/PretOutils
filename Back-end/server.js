@@ -167,21 +167,28 @@ app.get("/user/:id/annonces", (req, res) => {
   });
 });
 
-// Route pour obtenir tous les messages d'une conversation spécifique
 app.get("/messages/conversation/:conversationId", (req, res) => {
-  const conversationId = req.params.conversationId;
-  const query = "SELECT * FROM messages WHERE conversation_id = ?";
-  db.query(query, [conversationId], (err, results) => {
+  const { conversationId } = req.params;
+
+  if (!conversationId) {
+    return res.status(400).send("Les paramètres userId et conversationId sont requis");
+  }
+
+  console.log('Query Parameters:', conversationId);
+  console.log('Fetching messages for conversation:', conversationId);
+
+  const query = "SELECT * FROM messages WHERE conversation_id = ? ";
+  db.query(query, [conversationId,], (err, results) => {
     if (err) {
-      res
-        .status(500)
-        .send("Erreur lors de la récupération des messages de la conversation");
-      console.error(err);
-    } else {
-      res.json(results);
+      console.error("Erreur lors de la récupération des messages de la conversation", err);
+      return res.status(500).send("Erreur lors de la récupération des messages de la conversation");
+    } else if (results.length === 0) {
+      return res.status(404).send("Aucun message trouvé pour cette conversation et cet utilisateur");
     }
+    res.json(results);
   });
 });
+
 
 app.get("/conversations/user/:userId", (req, res) => {
   const userId = req.params.userId;
@@ -248,6 +255,22 @@ app.get('/categorie/:category/:sousCategory', (req, res) => {
   });
 });
 
+
+app.get('/profil/:id', (req, res) => {
+  const userId = req.params.id;
+  /*Je veux toute les info user et le nombre d'annonce qu'il a publié*/
+  const query = ` SELECT idname, nom, prenom, email, COUNT(annonces.id) as nbAnnonces FROM users LEFT JOIN annonces ON users.idname = annonces.author_idname WHERE users.idname = ?`;
+  db.query(query, [userId], (err, results) => {
+      if (err) {
+          res.status(500).send("Erreur lors de la récupération du profil");
+          console.error(err);
+      } else {
+          res.json(results);
+          console.log('Profil récupéré:', results);
+      }
+  });
+
+});
 
 
 app.post('/inscription', async (req, res) => {
